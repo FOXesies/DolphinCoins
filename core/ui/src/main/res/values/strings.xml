@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_balance_title">My balance</string>
+    <string name="home_balance_action_funds_up">To Up</string>
+    <string name="home_balance_action_withdraw">Send</string>
+    <string name="home_balance_action_history">History</string>
+    <string name="home_balance_action_scan_qr">Scan QR</string>
+
+
+    <string name="dollar_marker">$</string>
+    <string name="app_name">Dolphin Coins</string>
+</resources>
