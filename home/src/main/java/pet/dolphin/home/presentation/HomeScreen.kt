@@ -39,21 +39,19 @@ fun HomeScreen() {
 
             // Widget Balance
             HomeBalance(
-                balanceUi = balanceUI
+                balanceUi = BalanceUI(
+                    id = "1asff",
+                    balanceTotalDisplay = BalanceTotalDisplay(
+                        totalForView = "27,421.42",
+                        differencePercentage = "2.7",
+                        differenceLocalCurrency = "741.35",
+                        localCurrencySymbol = stringResource(R.string.dollar_marker)
+                    )
+                )
             )
         }
     }
 }
-
-private val balanceUI = BalanceUI(
-    id = "1asff",
-    balanceTotalDisplay = BalanceTotalDisplay(
-        totalForView = "27,421.42",
-        differencePercentage = "2.7",
-        differenceLocalCurrency = "741.35",
-        localCurrencySymbol = stringResource(R.string.dollar_marker)
-    )
-)
 
 @Preview
 @Composable
