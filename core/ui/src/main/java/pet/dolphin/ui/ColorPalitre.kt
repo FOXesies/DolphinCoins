@@ -11,10 +11,12 @@ data class ColorPalette(
     val container: Color,
     val primary: Color,
     val secondary: Color,
+    val error: Color = Color.Red,
     val tertiary: Color,
     val surface: Color,
     val onBackground: Color,
-    val onContainer: Color
+    val onContainer: Color,
+    val onError: Color = Color.Red
 )
 
 val DarkColorScheme = ColorPalette(
@@ -25,18 +27,20 @@ val DarkColorScheme = ColorPalette(
     surface = Color(0xFF3B6F35),
     container = Color(0xFFF5F5F5),
     onBackground = Color(0xE9EEEFEF),
-    onContainer = Color(0xE9EEEFEF)
+    onContainer = Color(0xE9EEEFEF),
+    error = Color(0xE9EEEFEF)
 )
 
 val LightColorScheme = ColorPalette(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40,
-    background = Color(0xFF1B1C1E),
+    background = Color(0xFF1E1E1F),
     surface = Color(0xFF3B6F35),
-    container = Color(0xFF3F4040),
+    container = Color(0xFF353636),
     onBackground = Color(0xE9F3F3F3),
-    onContainer = Color(0xE99C9C9C)
+    onContainer = Color(0xE9808080),
+    error = Color(0xFFFA2F2F)
 )
 
 val LocalColorsPalette = staticCompositionLocalOf { LightColorScheme }

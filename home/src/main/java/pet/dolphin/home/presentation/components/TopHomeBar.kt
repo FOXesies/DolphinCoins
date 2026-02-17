@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pet.dolphin.ui.R
 import pet.dolphin.ui.ThemeShapes
+import pet.eat.ui.ColorPalette
 import pet.eat.ui.LocalColorsPalette
 
 @Composable
@@ -33,6 +34,7 @@ fun TopHomeBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        // Profile Image
         Image(
             modifier = Modifier
                 .size(50.dp)
@@ -42,6 +44,7 @@ fun TopHomeBar(
             contentDescription = "profile_img"
         )
 
+        // Profile name
         Text(
             text = nameProfile,
             modifier = Modifier.weight(1f),
@@ -50,6 +53,7 @@ fun TopHomeBar(
             fontWeight = FontWeight.Medium
         )
 
+        // Notification
         Icon(
             modifier = Modifier
                 .clip(ThemeShapes.circle)

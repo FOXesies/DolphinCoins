@@ -1,4 +1,4 @@
-package pet.dolphin.home.presentation.model
+package pet.dolphin.home.presentation.balance.model
 
 data class BalanceActionButton(
     val type: BalanceActionType,
