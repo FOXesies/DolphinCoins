@@ -40,7 +40,7 @@ val LightColorScheme = ColorPalette(
     container = Color(0xFF353636),
     onBackground = Color(0xE9F3F3F3),
     onContainer = Color(0xE9808080),
-    error = Color(0xFFFA2F2F)
+    error = Color(0xFFFF4141)
 )
 
 val LocalColorsPalette = staticCompositionLocalOf { LightColorScheme }
