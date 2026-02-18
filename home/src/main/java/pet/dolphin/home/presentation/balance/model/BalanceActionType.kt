@@ -1,4 +1,4 @@
-package pet.dolphin.home.presentation.model
+package pet.dolphin.home.presentation.balance.model
 
 sealed class BalanceActionType {
     object UpFunds : BalanceActionType()

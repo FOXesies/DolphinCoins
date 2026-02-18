@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="balance_title">My balance</string>
+    <string name="balance_action_funds_up">Deposit</string>
+    <string name="balance_action_withdraw">Withdraw</string>
+    <string name="balance_action_history">History</string>
+    <string name="balance_action_scan_qr">Scan QR</string>
+
+    <string name="my_fund_title">My funds</string>
+    <string name="suggest_title">Suggest</string>
+    <string name="view_all">View all</string>
+</resources>
