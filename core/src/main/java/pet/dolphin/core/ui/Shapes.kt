@@ -1,4 +1,4 @@
-package pet.dolphin.ui
+package pet.dolphin.core.ui
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape

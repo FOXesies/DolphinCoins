@@ -11,7 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pet.dolphin.home.presentation.fund.model.FundUI
-import pet.dolphin.ui.widgets.DotSeparator
+import pet.dolphin.core.ui.widgets.DotSeparator
 import pet.eat.ui.LocalColorsPalette
 
 @Composable

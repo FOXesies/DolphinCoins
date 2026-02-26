@@ -1,11 +1,11 @@
 package pet.eat.ui
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalContext
+import pet.dolphin.core.ui.DarkColorScheme
+import pet.dolphin.core.ui.LightColorScheme
+import pet.dolphin.core.ui.LocalColorsPalette
 
 
 @Composable

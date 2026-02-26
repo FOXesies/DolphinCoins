@@ -1,4 +1,4 @@
-package pet.dolphin.ui.widgets
+package pet.dolphin.core.ui.widgets
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import pet.dolphin.ui.ThemeShapes
+import pet.dolphin.core.ui.ThemeShapes
 
 @Composable
 fun DotSeparator(

@@ -1,8 +1,11 @@
-package pet.eat.ui
+package pet.dolphin.core.ui
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import pet.eat.ui.Pink40
+import pet.eat.ui.Purple40
+import pet.eat.ui.PurpleGrey40
 
 
 @Immutable

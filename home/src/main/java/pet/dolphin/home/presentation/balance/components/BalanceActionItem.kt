@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pet.dolphin.home.presentation.balance.model.BalanceActionButton
-import pet.dolphin.ui.ThemeShapes
+import pet.dolphin.core.ui.ThemeShapes
 import pet.eat.ui.LocalColorsPalette
 
 @Composable

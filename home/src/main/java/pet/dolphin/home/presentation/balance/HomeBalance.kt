@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,7 +19,6 @@ import pet.dolphin.home.presentation.balance.model.BalanceActionType
 import pet.dolphin.home.presentation.balance.model.BalanceUI
 import pet.dolphin.ui.R
 import pet.dolphin.home.R as LocalR
-import pet.dolphin.ui.ThemeShapes
 import pet.eat.ui.LocalColorsPalette
 
 @Composable
