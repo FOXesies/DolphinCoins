@@ -12,20 +12,53 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import pet.dolphin.coins.ui.theme.DolphinCoinsTheme
+import pet.dolphin.core.navigation.Screen
+import pet.dolphin.home.presentation.HomeScreenRoot
 
 class MainActivity : ComponentActivity() {
+    private val backStack = mutableListOf<Screen>(Screen.Home)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             DolphinCoinsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    AppNavigationHost(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                        backStack = backStack,
+                        onNavigate = { screen ->
+                            backStack.add(screen)
+                        },
+                        onBack = {
+                            if (backStack.size > 1) backStack.removeAt(backStack.lastIndex)
+                        }
                     )
                 }
             }
+        }
+    }
+
+
+
+    @Composable
+    fun AppNavigationHost(
+        backStack: List<Screen>,
+        onNavigate: (Screen) -> Unit,
+        onBack: () -> Unit,
+        modifier: Modifier
+    ) {
+        when (val screen = backStack.last()) {
+            Screen.Home -> HomeScreenRoot(
+                modifier,
+                onNavigateDetail = { onNavigate(Screen.DetailFund(it)) }
+            )
+            is Screen.DetailFund -> {}/*DetailRoute(
+            id = screen.id,
+            onBack = onBack
+        )*/
         }
     }
 }

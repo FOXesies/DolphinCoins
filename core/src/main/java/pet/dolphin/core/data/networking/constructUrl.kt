@@ -1,6 +1,12 @@
 package pet.dolphin.core.data.networking
 
+import pet.dolphin.core.BuildConfig
+
 
 fun constructUrl(url: String): String {
-    return "https://api.coincap.io/v3/$url"
+    return when {
+        url.contains(BuildConfig.BASE_URL) -> url
+        url.startsWith("/") -> BuildConfig.BASE_URL + url.drop(1)
+        else -> BuildConfig.BASE_URL + url
+    }
 }

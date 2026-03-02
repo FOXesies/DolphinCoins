@@ -12,7 +12,6 @@ fun FundPreviewDto.toDomain() = FundPreview(
     symbol = symbol,
     rank = rank,
     name = name,
-    marketCapUsd = marketCapUsd,
     priceUsd = priceUsd,
     changePercent24Hr = changePercent24Hr,
 )
@@ -20,7 +19,7 @@ fun FundPreviewDto.toDomain() = FundPreview(
 fun FundPreview.toUi() = FundUI(
     symbol = symbol,
     fullName = name,
-    totalCoinsPrice = marketCapUsd.toCoinsInfo(),
+    totalCoinsPrice = priceUsd.toCoinsInfo(),
     changePercent24Hr = changePercent24Hr.toPercentInfo(),
     logoImg = "null",
     changeCurrency24Hr = changePercent24Hr.toPercentInfo(),

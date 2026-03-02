@@ -19,7 +19,7 @@ fun PriceCoinWithDifference(
     alignment: Alignment.Horizontal = Alignment.Start,
     fundUi: FundUI
 ){
-    val isPositiveChange = fundUi.changePercent24Hr.value > 0.0
+    val isPositiveChange = fundUi.changePercent24Hr.value >= 0.0
     val colorChanges = if(isPositiveChange) LocalColorsPalette.current.secondary else LocalColorsPalette.current.error
 
     Column(

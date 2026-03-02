@@ -12,22 +12,8 @@ import pet.dolphin.home.domain.usecase.GetTopPopularFundsUseCase
 import pet.dolphin.home.presentation.HomeViewModel
 
 val homeModule = module {
-    includes(
-        domain,
-        data,
-        presentation
-    )
-}
-
-private val data = module {
     singleOf(::HomeRemoteSource).bind<HomeRemoteSource>()
     singleOf(::HomeRepositoryImpl).bind<HomeRepository>()
-}
-
-private val presentation = module {
-    viewModelOf(::HomeViewModel)
-}
-
-private val domain = module {
     factoryOf(::GetTopPopularFundsUseCase)
+    viewModelOf(::HomeViewModel)
 }

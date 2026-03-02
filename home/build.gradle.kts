@@ -31,10 +31,6 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField("String", "BASE_URL", "\"https://api.coincap.io/v3/\"")
-            buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("API_KEY", "")}\"")
-        }
 
         release {
             isMinifyEnabled = false
@@ -42,24 +38,23 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-
-            buildConfigField("String", "BASE_URL", "\"https://api.coincap.io/v3/\"")
-            buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("API_KEY", "")}\"")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     testOptions {
         unitTests.isIncludeAndroidResources = false
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -99,4 +94,7 @@ dependencies {
 
     //koin
     implementation(libs.bundles.koin)
+
+    //nav
+    implementation(libs.androidx.navigation.compose)
 }

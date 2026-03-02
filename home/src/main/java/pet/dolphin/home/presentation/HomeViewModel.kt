@@ -19,6 +19,7 @@ import pet.dolphin.core.domain.util.onError
 import pet.dolphin.core.domain.util.onSuccess
 import pet.dolphin.home.data.mappers.toUi
 import pet.dolphin.home.domain.usecase.GetTopPopularFundsUseCase
+import pet.dolphin.home.presentation.model.Effect
 import pet.dolphin.home.presentation.model.HomeAction
 import pet.dolphin.home.presentation.model.HomeEvent
 import pet.dolphin.home.presentation.model.HomeScreenState
@@ -38,12 +39,19 @@ class HomeViewModel (
     private val _events = Channel<HomeEvent>()
     val events = _events.receiveAsFlow()
 
+    private val _effect = Channel<Effect>()
+    val effect = _effect.receiveAsFlow()
+
     fun onAction(action: HomeAction){
         when(action){
             HomeAction.LoadData, HomeAction.Retry -> loadFundsInfo()
-            is HomeAction.OnTapFound -> TODO()
+            is HomeAction.OnTapFund -> sendEffect(Effect.NavigateDetail(action.id))
             HomeAction.OnTapProfile -> TODO()
         }
+    }
+
+    private fun sendEffect(effect: Effect) {
+        viewModelScope.launch { _effect.send(effect) }
     }
 
     private fun loadFundsInfo(){

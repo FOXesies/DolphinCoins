@@ -18,6 +18,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,17 +40,29 @@ import pet.dolphin.home.presentation.fund.model.FundUI
 import pet.dolphin.home.R as LocalR
 import pet.dolphin.core.ui.ThemeShapes
 import pet.dolphin.home.presentation.model.DisplayableNumber
+import pet.dolphin.home.presentation.model.Effect
 import pet.dolphin.home.presentation.model.HomeAction
 import pet.dolphin.home.presentation.model.HomeScreenState
 
 @Composable
 fun HomeScreenRoot(
-    navController: NavHostController,
+    modifier: Modifier,
+    onNavigateDetail: (String) -> Unit,
     viewModel: HomeViewModel = koinViewModel()
 ){
     val state by viewModel.state.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.effect.collect { effect ->
+            when (effect) {
+                is Effect.NavigateDetail ->
+                    onNavigateDetail(effect.id)
+            }
+        }
+    }
+
     HomeScreenContent(
+        modifier,
         state = state,
         onAction = viewModel::onAction
     )
@@ -57,13 +70,13 @@ fun HomeScreenRoot(
 
 @Composable
 fun HomeScreenContent(
+    modifier: Modifier,
     state: HomeScreenState,
     onAction: (HomeAction) -> Unit
 ) {
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = modifier
             .background(LocalColorsPalette.current.background)
     ) {
         Column(
@@ -132,7 +145,9 @@ fun HomeScreenContent(
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.myFunds){ curFund ->
+                items(
+                    state.myFunds
+                ){ curFund ->
                     MyFundItem(
                         modifier = basicModifierContainer
                             .padding(vertical = 10.dp, horizontal = 12.dp),
@@ -170,7 +185,9 @@ fun HomeScreenContent(
             LazyColumn (
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(state.topPopularFunds){ curFund ->
+                items(
+                    state.topPopularFunds
+                ){ curFund ->
                     SuggestFundItem(
                         modifier = basicModifierContainer
                             .fillMaxWidth()
@@ -258,6 +275,7 @@ fun PreviewHomeScreen() {
     )
 
     HomeScreenContent(
+        Modifier,
         HomeScreenState(topPopularFunds = funds),
         {}
     )

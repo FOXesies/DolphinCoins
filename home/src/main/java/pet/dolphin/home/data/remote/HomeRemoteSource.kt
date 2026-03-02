@@ -18,7 +18,7 @@ class HomeRemoteSource(
     suspend fun getTopPopularFunds(limit: Int): Result<List<FundPreview>, NetworkError> {
         return safeNetworkCall<TopPopularResponseDto> {
             httpClient.get(
-                urlString = constructUrl("/assets")
+                urlString = constructUrl("assets")
             ){
                 parameter("limit", limit)
             }

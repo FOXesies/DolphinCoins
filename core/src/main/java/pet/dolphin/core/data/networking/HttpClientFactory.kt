@@ -9,15 +9,15 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.header
-import io.ktor.client.utils.EmptyContent.contentType
 import io.ktor.http.ContentType
-import io.ktor.http.ContentType.Application.Json
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import pet.dolphin.core.BuildConfig
 
 object HttpClientFactory {
     fun create(engine: HttpClientEngine): HttpClient {
+
         return HttpClient(engine) {
             install(Logging) {
                 level = LogLevel.ALL
@@ -31,8 +31,8 @@ object HttpClientFactory {
                 )
             }
             defaultRequest {
-                contentType(Json)
-                header("Authorization", "Bearer 10abf371c44b737688319480b2846568356208e6eabbeac1eef31d4cd149a0c6")
+                contentType(ContentType.Application.Json)
+                header("Authorization", "Bearer ${BuildConfig.API_KEY}")
             }
         }
     }
