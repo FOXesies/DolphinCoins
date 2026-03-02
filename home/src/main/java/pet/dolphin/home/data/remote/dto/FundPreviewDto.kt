@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FundPreviewDto (
     val id: String,
-    val rank: Int,
+    val rank: String,
     val name: String,
     val symbol: String,
     val marketCapUsd: Double,

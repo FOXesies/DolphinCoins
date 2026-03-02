@@ -1,4 +1,4 @@
-package pet.dolphin.core.domain
+package pet.dolphin.core.domain.util
 
 enum class LocalError: ErrorDomain {
     DATABASE_NOT_INITIALIZED,

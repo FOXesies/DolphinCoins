@@ -1,7 +1,7 @@
 package pet.dolphin.home.domain.repository
 
-import pet.dolphin.core.domain.ErrorDomain
-import pet.dolphin.core.domain.Result
+import pet.dolphin.core.domain.util.ErrorDomain
+import pet.dolphin.core.domain.util.Result
 import pet.dolphin.home.domain.model.FundPreview
 
 interface HomeRepository {

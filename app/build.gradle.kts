@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
-    id("com.google.devtools.ksp")
+    //
+    //    id("com.google.devtools.ksp")
 }
 
 android {
@@ -45,6 +46,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":home"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -60,4 +64,7 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    //koin
+    implementation(libs.bundles.koin)
 }

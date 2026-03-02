@@ -15,9 +15,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pet.dolphin.core.R
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.fund.model.FundUI
-import pet.dolphin.ui.R
-import pet.eat.ui.LocalColorsPalette
 
 @Composable
 fun NameCoinWithLogo(

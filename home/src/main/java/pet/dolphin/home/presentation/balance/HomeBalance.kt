@@ -13,13 +13,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pet.dolphin.core.R
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.balance.components.BalanceActionItem
-import pet.dolphin.home.presentation.balance.model.BalanceActionButton
-import pet.dolphin.home.presentation.balance.model.BalanceActionType
+import pet.dolphin.home.presentation.balance.model.BalanceActionButtonUi
+import pet.dolphin.home.presentation.balance.model.BalanceActionTypeUi
 import pet.dolphin.home.presentation.balance.model.BalanceUI
-import pet.dolphin.ui.R
 import pet.dolphin.home.R as LocalR
-import pet.eat.ui.LocalColorsPalette
 
 @Composable
 fun HomeBalance(
@@ -86,14 +86,14 @@ fun HomeBalance(
 }
 
 private val buttonsAction = listOf(
-    BalanceActionButton(
+    BalanceActionButtonUi(
         name = LocalR.string.balance_action_funds_up,
-        type = BalanceActionType.UpFunds,
+        type = BalanceActionTypeUi.UpFunds,
         imageRes = R.drawable.arrow_down
     ),
-    BalanceActionButton(
+    BalanceActionButtonUi(
         name = LocalR.string.balance_action_withdraw,
-        type = BalanceActionType.Withdraw,
+        type = BalanceActionTypeUi.Withdraw,
         imageRes = R.drawable.arrow_up
     ),
 )

@@ -8,6 +8,5 @@ data class FundUI(
     val logoImg: String,
     val totalCoinsPrice: DisplayableNumber,
     val changePercent24Hr: DisplayableNumber,
-    val changeCurrency24Hr: DisplayableNumber,
-    val localCurrencySymbol: String
+    val changeCurrency24Hr: DisplayableNumber
 )

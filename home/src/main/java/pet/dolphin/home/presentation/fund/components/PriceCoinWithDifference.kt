@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.fund.model.FundUI
 import pet.dolphin.core.ui.widgets.DotSeparator
-import pet.eat.ui.LocalColorsPalette
 
 @Composable
 fun PriceCoinWithDifference(

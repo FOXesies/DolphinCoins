@@ -1,4 +1,4 @@
-package pet.dolphin.core.domain
+package pet.dolphin.core.domain.util
 
 enum class NetworkError: ErrorDomain {
     REQUEST_TIMEOUT,

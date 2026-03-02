@@ -1,13 +1,11 @@
 package pet.dolphin.core.data.networking
 
-import io.ktor.client.HttpClient
 import io.ktor.client.statement.HttpResponse
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
-import pet.dolphin.core.domain.NetworkError
-import pet.dolphin.core.domain.Result
+import pet.dolphin.core.domain.util.NetworkError
+import pet.dolphin.core.domain.util.Result
 import kotlin.coroutines.coroutineContext
 
 suspend inline fun <reified T> safeNetworkCall(

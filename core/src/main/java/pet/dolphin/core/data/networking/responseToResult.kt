@@ -3,9 +3,8 @@ package pet.dolphin.core.data.networking
 import io.ktor.client.call.NoTransformationFoundException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
-import kotlinx.serialization.SerializationException
-import pet.dolphin.core.domain.NetworkError
-import pet.dolphin.core.domain.Result
+import pet.dolphin.core.domain.util.NetworkError
+import pet.dolphin.core.domain.util.Result
 
 suspend inline fun <reified T> responseToResult(
     response: HttpResponse

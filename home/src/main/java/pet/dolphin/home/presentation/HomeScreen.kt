@@ -18,6 +18,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
@@ -25,94 +26,40 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.koin.androidx.compose.koinViewModel
+import pet.dolphin.core.R
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.balance.HomeBalance
 import pet.dolphin.home.presentation.components.TopHomeBar
 import pet.dolphin.home.presentation.balance.model.BalanceUI
 import pet.dolphin.home.presentation.fund.MyFundItem
 import pet.dolphin.home.presentation.fund.SuggestFundItem
-import pet.dolphin.home.presentation.fund.model.DisplayableNumber
 import pet.dolphin.home.presentation.fund.model.FundUI
-import pet.dolphin.ui.R
 import pet.dolphin.home.R as LocalR
 import pet.dolphin.core.ui.ThemeShapes
-import pet.eat.ui.LocalColorsPalette
+import pet.dolphin.home.presentation.model.DisplayableNumber
+import pet.dolphin.home.presentation.model.HomeAction
+import pet.dolphin.home.presentation.model.HomeScreenState
 
 @Composable
-fun HomeScreen() {
-    val funds = listOf(
-        FundUI(
-            symbol = "BTC",
-            fullName = "Bitcoin",
-            logoImg = "none",
-            totalCoinsPrice = DisplayableNumber(
-                value = 10.42,
-                formatted = "$10.42"  // 👈 Включаем символ валюты
-            ),
-            changePercent24Hr = DisplayableNumber(
-                value = 0.7,
-                formatted = "+0.7%"
-            ),
-            changeCurrency24Hr = DisplayableNumber(
-                value = 0.84,
-                formatted = "+$0.84"
-            ),
-            localCurrencySymbol = stringResource(R.string.dollar_marker)
-        ),
-        FundUI(
-            symbol = "PXM",
-            fullName = "Postmarker",
-            logoImg = "none",
-            totalCoinsPrice = DisplayableNumber(
-                value = 20.01,
-                formatted = "$20.01"  // 👈 Символ валюты
-            ),
-            changePercent24Hr = DisplayableNumber(
-                value = 10.7,
-                formatted = "+10.7%"
-            ),
-            changeCurrency24Hr = DisplayableNumber(
-                value = 2.10,
-                formatted = "+$2.10"
-            ),
-            localCurrencySymbol = stringResource(R.string.dollar_marker)
-        ),
-        FundUI(
-            symbol = "NON",
-            fullName = "None Bitcoin",
-            logoImg = "none",
-            totalCoinsPrice = DisplayableNumber(
-                value = 5004.05,
-                formatted = "$5,004.05"  // 👈 Символ валюты
-            ),
-            changePercent24Hr = DisplayableNumber(
-                value = -10.0,
-                formatted = "-10.0%"
-            ),
-            changeCurrency24Hr = DisplayableNumber(
-                value = -500.35,
-                formatted = "-$500.35"
-            ),
-            localCurrencySymbol = stringResource(R.string.dollar_marker)
-        ),
-        FundUI(
-            symbol = "COE",
-            fullName = "CoeCoe Coin",
-            logoImg = "none",
-            totalCoinsPrice = DisplayableNumber(
-                value = 1778.00,
-                formatted = "$1,778.00"  // 👈 Символ валюты
-            ),
-            changePercent24Hr = DisplayableNumber(
-                value = 11.0,
-                formatted = "+11.0%"
-            ),
-            changeCurrency24Hr = DisplayableNumber(
-                value = 199.89,
-                formatted = "+$199.89"
-            ),
-            localCurrencySymbol = stringResource(R.string.dollar_marker)
-        )
+fun HomeScreenRoot(
+    navController: NavHostController,
+    viewModel: HomeViewModel = koinViewModel()
+){
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    HomeScreenContent(
+        state = state,
+        onAction = viewModel::onAction
     )
+}
+
+@Composable
+fun HomeScreenContent(
+    state: HomeScreenState,
+    onAction: (HomeAction) -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -185,7 +132,7 @@ fun HomeScreen() {
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(funds){ curFund ->
+                items(state.myFunds){ curFund ->
                     MyFundItem(
                         modifier = basicModifierContainer
                             .padding(vertical = 10.dp, horizontal = 12.dp),
@@ -223,7 +170,7 @@ fun HomeScreen() {
             LazyColumn (
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(funds){ curFund ->
+                items(state.topPopularFunds){ curFund ->
                     SuggestFundItem(
                         modifier = basicModifierContainer
                             .fillMaxWidth()
@@ -239,5 +186,79 @@ fun HomeScreen() {
 @Preview
 @Composable
 fun PreviewHomeScreen() {
-    HomeScreen()
+    val funds = listOf(
+        FundUI(
+            symbol = "BTC",
+            fullName = "Bitcoin",
+            logoImg = "none",
+            totalCoinsPrice = DisplayableNumber(
+                value = 10.42,
+                formatted = "$10.42"  // 👈 Включаем символ валюты
+            ),
+            changePercent24Hr = DisplayableNumber(
+                value = 0.7,
+                formatted = "+0.7%"
+            ),
+            changeCurrency24Hr = DisplayableNumber(
+                value = 0.84,
+                formatted = "+$0.84"
+            ),
+        ),
+        FundUI(
+            symbol = "PXM",
+            fullName = "Postmarker",
+            logoImg = "none",
+            totalCoinsPrice = DisplayableNumber(
+                value = 20.01,
+                formatted = "$20.01"  // 👈 Символ валюты
+            ),
+            changePercent24Hr = DisplayableNumber(
+                value = 10.7,
+                formatted = "+10.7%"
+            ),
+            changeCurrency24Hr = DisplayableNumber(
+                value = 2.10,
+                formatted = "+$2.10"
+            ),
+        ),
+        FundUI(
+            symbol = "NON",
+            fullName = "None Bitcoin",
+            logoImg = "none",
+            totalCoinsPrice = DisplayableNumber(
+                value = 5004.05,
+                formatted = "$5,004.05"  // 👈 Символ валюты
+            ),
+            changePercent24Hr = DisplayableNumber(
+                value = -10.0,
+                formatted = "-10.0%"
+            ),
+            changeCurrency24Hr = DisplayableNumber(
+                value = -500.35,
+                formatted = "-$500.35"
+            ),
+        ),
+        FundUI(
+            symbol = "COE",
+            fullName = "CoeCoe Coin",
+            logoImg = "none",
+            totalCoinsPrice = DisplayableNumber(
+                value = 1778.00,
+                formatted = "$1,778.00"  // 👈 Символ валюты
+            ),
+            changePercent24Hr = DisplayableNumber(
+                value = 11.0,
+                formatted = "+11.0%"
+            ),
+            changeCurrency24Hr = DisplayableNumber(
+                value = 199.89,
+                formatted = "+$199.89"
+            ),
+        )
+    )
+
+    HomeScreenContent(
+        HomeScreenState(topPopularFunds = funds),
+        {}
+    )
 }

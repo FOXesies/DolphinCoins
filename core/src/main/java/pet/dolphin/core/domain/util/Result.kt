@@ -1,4 +1,4 @@
-package pet.dolphin.core.domain
+package pet.dolphin.core.domain.util
 
 sealed interface Result<out D, out ErrorDomain> {
     data class Success<out D>(val data: D): Result<D, Nothing>
@@ -25,7 +25,7 @@ inline fun <T, E: ErrorDomain> Result<T, E>.onError(action: (E) -> Unit): Result
     }
 }
 
-inline fun <T, E: Error, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
+inline fun <T, E: ErrorDomain, R> Result<T, E>.map(map: (T) -> R): Result<R, E> {
     return when(this) {
         is Result.Error -> Result.Error(error)
         is Result.Success -> Result.Success(map(data))

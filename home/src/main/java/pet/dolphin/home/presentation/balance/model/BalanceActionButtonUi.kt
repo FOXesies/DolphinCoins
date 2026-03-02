@@ -1,6 +1,6 @@
 package pet.dolphin.home.presentation.balance.model
 
-data class BalanceActionButton(
+data class BalanceActionButtonUi(
     val type: BalanceActionType,
     val name: Int,
     val imageRes: Int,
