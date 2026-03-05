@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import pet.dolphin.coins.ui.theme.DolphinCoinsTheme
 import pet.dolphin.core.navigation.Screen
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.HomeScreenRoot
 
 class MainActivity : ComponentActivity() {
@@ -22,11 +24,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            DolphinCoinsTheme {
+                DolphinCoinsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AppNavigationHost(
                         modifier = Modifier
                             .fillMaxSize()
+                            .background(LocalColorsPalette.current.background)
                             .padding(innerPadding),
                         backStack = backStack,
                         onNavigate = { screen ->

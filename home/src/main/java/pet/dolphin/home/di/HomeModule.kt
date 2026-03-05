@@ -6,6 +6,7 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import pet.dolphin.home.data.remote.HomeRemoteSource
+import pet.dolphin.home.data.remote.TopFundsWebSocketManager
 import pet.dolphin.home.data.repository.HomeRepositoryImpl
 import pet.dolphin.home.domain.repository.HomeRepository
 import pet.dolphin.home.domain.usecase.GetTopPopularFundsUseCase
@@ -14,6 +15,7 @@ import pet.dolphin.home.presentation.HomeViewModel
 val homeModule = module {
     singleOf(::HomeRemoteSource).bind<HomeRemoteSource>()
     singleOf(::HomeRepositoryImpl).bind<HomeRepository>()
+    factoryOf(::TopFundsWebSocketManager)
     factoryOf(::GetTopPopularFundsUseCase)
     viewModelOf(::HomeViewModel)
 }

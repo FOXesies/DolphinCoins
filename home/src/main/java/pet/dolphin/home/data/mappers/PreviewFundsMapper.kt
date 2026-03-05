@@ -1,6 +1,7 @@
 package pet.dolphin.home.data.mappers
 
 import pet.dolphin.home.data.remote.dto.FundPreviewDto
+import pet.dolphin.home.data.remote.dto.FundWsResponseDto
 import pet.dolphin.home.domain.model.FundPreview
 import pet.dolphin.home.presentation.fund.model.FundUI
 import pet.dolphin.home.presentation.model.DisplayableNumber
@@ -10,6 +11,13 @@ import java.util.Locale
 fun FundPreviewDto.toDomain() = FundPreview(
     id = id,
     symbol = symbol,
+    rank = rank,
+    name = name,
+    priceUsd = priceUsd,
+    changePercent24Hr = changePercent24Hr,
+)
+fun FundWsResponseDto.toDomain() = FundPreview(
+    symbol = data.symbol,
     rank = rank,
     name = name,
     priceUsd = priceUsd,
