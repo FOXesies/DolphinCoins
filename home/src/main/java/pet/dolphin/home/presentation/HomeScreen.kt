@@ -146,12 +146,14 @@ fun HomeScreenContent(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-                    state.myFunds
-                ){ curFund ->
+                    items = state.myFunds.entries.toList(),
+                    key = { it.key }
+                ) { curFund ->
+
                     MyFundItem(
                         modifier = basicModifierContainer
                             .padding(vertical = 10.dp, horizontal = 12.dp),
-                        fundUi = curFund
+                        fundUi = curFund.value
                     )
                 }
             }
@@ -186,13 +188,14 @@ fun HomeScreenContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(
-                    state.topPopularFunds
+                    items = state.topPopularFunds.entries.toList(),
+                    key = { it.key }
                 ){ curFund ->
                     SuggestFundItem(
                         modifier = basicModifierContainer
                             .fillMaxWidth()
                             .padding(vertical = 10.dp, horizontal = 12.dp),
-                        fundUi = curFund
+                        fundUi = curFund.value
                     )
                 }
             }
@@ -203,7 +206,7 @@ fun HomeScreenContent(
 @Preview
 @Composable
 fun PreviewHomeScreen() {
-    val funds = listOf(
+    /*val funds = listOf(
         FundUI(
             symbol = "BTC",
             fullName = "Bitcoin",
@@ -278,5 +281,5 @@ fun PreviewHomeScreen() {
         Modifier,
         HomeScreenState(topPopularFunds = funds),
         {}
-    )
+    )*/
 }

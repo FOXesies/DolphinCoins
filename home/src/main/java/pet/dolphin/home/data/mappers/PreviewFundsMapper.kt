@@ -1,38 +1,43 @@
 package pet.dolphin.home.data.mappers
 
 import pet.dolphin.home.data.remote.dto.FundPreviewDto
-import pet.dolphin.home.data.remote.dto.FundWsResponseDto
+import pet.dolphin.home.data.remote.dto.FundPreviewWsDto
 import pet.dolphin.home.domain.model.FundPreview
+import pet.dolphin.home.domain.model.FundPreviewWs
 import pet.dolphin.home.presentation.fund.model.FundUI
 import pet.dolphin.home.presentation.model.DisplayableNumber
 import java.text.NumberFormat
 import java.util.Locale
 
 fun FundPreviewDto.toDomain() = FundPreview(
-    id = id,
     symbol = symbol,
-    rank = rank,
     name = name,
     priceUsd = priceUsd,
-    changePercent24Hr = changePercent24Hr,
+    changePercent = changePercent24Hr
 )
-fun FundWsResponseDto.toDomain() = FundPreview(
-    symbol = data.symbol,
-    rank = rank,
-    name = name,
-    priceUsd = priceUsd,
-    changePercent24Hr = changePercent24Hr,
+fun FundPreviewWsDto.toDomain() = FundPreviewWs(
+    symbol = symbol,
+    currentPrice = currentPrice.toDouble(),
+    priceChangePercent = priceChangePercent.toDouble(),
+    priceChangeCurrency = priceChangeCurrency.toDouble(),
 )
 
 fun FundPreview.toUi() = FundUI(
     symbol = symbol,
     fullName = name,
     totalCoinsPrice = priceUsd.toCoinsInfo(),
-    changePercent24Hr = changePercent24Hr.toPercentInfo(),
+    changePercent = changePercent.toPercentInfo(),
+    changeCurrency = changePercent.toCoinsInfo(),
     logoImg = "null",
-    changeCurrency24Hr = changePercent24Hr.toPercentInfo(),
 )
 
+fun String.toBinanceSymbol(): String {
+    return this.uppercase().plus("USDT")
+}
+
+fun String.toTicketParam(): String {
+    return this.lowercase().plus("@ticker")
+}
 
 fun Double.toCoinsInfo(): DisplayableNumber {
     val formatter = NumberFormat.getNumberInstance(Locale.getDefault()).apply {

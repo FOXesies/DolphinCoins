@@ -10,6 +10,7 @@ import pet.dolphin.home.data.remote.TopFundsWebSocketManager
 import pet.dolphin.home.data.repository.HomeRepositoryImpl
 import pet.dolphin.home.domain.repository.HomeRepository
 import pet.dolphin.home.domain.usecase.GetTopPopularFundsUseCase
+import pet.dolphin.home.domain.usecase.ObserveTopFundsUseCase
 import pet.dolphin.home.presentation.HomeViewModel
 
 val homeModule = module {
@@ -17,5 +18,6 @@ val homeModule = module {
     singleOf(::HomeRepositoryImpl).bind<HomeRepository>()
     factoryOf(::TopFundsWebSocketManager)
     factoryOf(::GetTopPopularFundsUseCase)
+    factoryOf(::ObserveTopFundsUseCase)
     viewModelOf(::HomeViewModel)
 }

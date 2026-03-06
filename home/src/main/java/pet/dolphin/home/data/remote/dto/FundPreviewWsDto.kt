@@ -4,16 +4,16 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class FundWsDto(
+data class FundPreviewWsDto(
     @SerialName("s")
     val symbol: String,
 
     @SerialName("c")
-    val priceUsd: String,
-
-    @SerialName("p")
-    val priceChange: String,
+    val currentPrice: String,
 
     @SerialName("P")
-    val priceChangePercent: String
+    val priceChangePercent: String,
+
+    @SerialName("p")
+    val priceChangeCurrency: String
 )

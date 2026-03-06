@@ -9,6 +9,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -17,15 +19,22 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import pet.dolphin.core.domain.util.onError
 import pet.dolphin.core.domain.util.onSuccess
+import pet.dolphin.home.data.mappers.toBinanceSymbol
+import pet.dolphin.home.data.mappers.toCoinsInfo
+import pet.dolphin.home.data.mappers.toPercentInfo
 import pet.dolphin.home.data.mappers.toUi
+import pet.dolphin.home.domain.model.FundPreview
 import pet.dolphin.home.domain.usecase.GetTopPopularFundsUseCase
+import pet.dolphin.home.domain.usecase.ObserveTopFundsUseCase
 import pet.dolphin.home.presentation.model.Effect
 import pet.dolphin.home.presentation.model.HomeAction
 import pet.dolphin.home.presentation.model.HomeEvent
 import pet.dolphin.home.presentation.model.HomeScreenState
+import kotlin.collections.forEach
 
 class HomeViewModel (
-    private val getTopPopularFundsUseCase: GetTopPopularFundsUseCase
+    private val getTopPopularFundsUseCase: GetTopPopularFundsUseCase,
+    private val observeTopFundsUseCase: ObserveTopFundsUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(HomeScreenState())
@@ -64,12 +73,19 @@ class HomeViewModel (
                     getTopPopularFundsUseCase
                         .invoke()
                         .onSuccess { result ->
+                            val mapFunds = result.associate { fund ->
+                                val ui = fund.toUi()
+                                fund.symbol.toBinanceSymbol() to ui
+                            }
+
                             _state.update {
                                 it.copy(
                                     isLoading = false,
-                                    topPopularFunds = result.map { fund -> fund.toUi() }
+                                    topPopularFunds = mapFunds
                                 )
                             }
+
+                            observeTopFunds(mapFunds.keys)
                         }
                         .onError { errorMesssage ->
                             _state.update { it.copy(isLoading = false) }
@@ -81,6 +97,25 @@ class HomeViewModel (
                 }
             }
         }
+    }
+
+    private suspend fun observeTopFunds(fundsSymbols: Set<String>) {
+        observeTopFundsUseCase(fundsSymbols).onEach { fund ->
+            _state.update { curState ->
+                val updated = curState.topPopularFunds.toMutableMap()
+                val current = updated[fund.symbol]
+
+                if (current != null) {
+                    updated[fund.symbol] = current.copy(
+                        totalCoinsPrice = fund.currentPrice.toCoinsInfo(),
+                        changePercent = fund.priceChangePercent.toPercentInfo(),
+                        changeCurrency = fund.priceChangeCurrency.toCoinsInfo()
+                    )
+                }
+
+                curState.copy(topPopularFunds = updated)
+            }
+        }.launchIn(viewModelScope)
     }
 
 }
