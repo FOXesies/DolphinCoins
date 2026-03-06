@@ -47,7 +47,7 @@ fun Double.toCoinsInfo(): DisplayableNumber {
 
     return DisplayableNumber(
         value = this,
-        formatted = "$".plus(formatter.format(this))
+        formatted = formatter.format(this).plus("$")
     )
 }
 

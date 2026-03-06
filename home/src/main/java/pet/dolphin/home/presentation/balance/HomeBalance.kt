@@ -24,7 +24,7 @@ import pet.dolphin.home.R as LocalR
 @Composable
 fun HomeBalance(
     modifier: Modifier = Modifier,
-    balanceUi: BalanceUI
+    balanceUi: BalanceUI?
 ) {
     Column(
         modifier = modifier
@@ -39,46 +39,48 @@ fun HomeBalance(
             color = LocalColorsPalette.current.onContainer
         )
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Total cache with localCurrencySymbol
-            Text(
-                balanceUi.totalCoinsPrice.formatted,
-                modifier = Modifier.weight(1f),
-                fontWeight = FontWeight.ExtraBold,
-                color = LocalColorsPalette.current.onBackground,
-                fontSize = 26.sp
-            )
-
-            // Difference percentage and cache with localCurrencySymbol
-            Column(
-                horizontalAlignment = Alignment.End
+        if(balanceUi != null) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                // Total cache with localCurrencySymbol
                 Text(
-                    balanceUi.changeCurrency24Hr.formatted,
+                    balanceUi.totalCoinsPrice.formatted,
+                    modifier = Modifier.weight(1f),
                     fontWeight = FontWeight.ExtraBold,
                     color = LocalColorsPalette.current.onBackground,
-                    fontSize = 16.sp
+                    fontSize = 26.sp
                 )
 
-                Text(
-                    balanceUi.changePercent24Hr.formatted,
-                    fontWeight = FontWeight.Medium,
-                    color = LocalColorsPalette.current.secondary,
-                    fontSize = 16.sp
-                )
+                // Difference percentage and cache with localCurrencySymbol
+                Column(
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        balanceUi.changeCurrency24Hr.formatted,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = LocalColorsPalette.current.onBackground,
+                        fontSize = 16.sp
+                    )
+
+                    Text(
+                        balanceUi.changePercent24Hr.formatted,
+                        fontWeight = FontWeight.Medium,
+                        color = LocalColorsPalette.current.secondary,
+                        fontSize = 16.sp
+                    )
+                }
             }
-        }
 
-        // Actions with balance
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            val modifierBalanceActionButton = Modifier.weight(1f)
-            buttonsAction.forEach { buttonInfo ->
-                BalanceActionItem(modifierBalanceActionButton, buttonInfo)
+            // Actions with balance
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                val modifierBalanceActionButton = Modifier.weight(1f)
+                buttonsAction.forEach { buttonInfo ->
+                    BalanceActionItem(modifierBalanceActionButton, buttonInfo)
+                }
             }
         }
 

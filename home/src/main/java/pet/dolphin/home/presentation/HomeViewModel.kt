@@ -26,6 +26,8 @@ import pet.dolphin.home.data.mappers.toUi
 import pet.dolphin.home.domain.model.FundPreview
 import pet.dolphin.home.domain.usecase.GetTopPopularFundsUseCase
 import pet.dolphin.home.domain.usecase.ObserveTopFundsUseCase
+import pet.dolphin.home.presentation.balance.model.BalanceUI
+import pet.dolphin.home.presentation.model.DisplayableNumber
 import pet.dolphin.home.presentation.model.Effect
 import pet.dolphin.home.presentation.model.HomeAction
 import pet.dolphin.home.presentation.model.HomeEvent
@@ -81,7 +83,24 @@ class HomeViewModel (
                             _state.update {
                                 it.copy(
                                     isLoading = false,
-                                    topPopularFunds = mapFunds
+                                    topPopularFunds = mapFunds,
+                                    myFunds = mapFunds.mapValues {
+                                        it.value.copy(
+                                            changeCurrency = (it.value.changeCurrency?.value?.times(2))?.toCoinsInfo(),
+                                            totalCoinsPrice = (it.value.totalCoinsPrice.value * 2).toCoinsInfo()
+                                        )
+                                    },
+                                    myBalance = BalanceUI(
+                                        id = "1",
+                                        totalCoinsPrice = it.myFunds.values.sumOf { fund -> fund.totalCoinsPrice.value }.toCoinsInfo(),
+                                        changePercent24Hr = DisplayableNumber(
+                                            value = -2501.7,
+                                            formatted = "-7.7%"
+                                        ),
+                                        changeCurrency24Hr = it.myFunds.values.sumOf { fund ->
+                                            (fund.changeCurrency?.value ?: 0).toDouble()
+                                        }.toCoinsInfo()
+                                    )
                                 )
                             }
 
@@ -105,6 +124,13 @@ class HomeViewModel (
                 val updated = curState.topPopularFunds.toMutableMap()
                 val current = updated[fund.symbol]
 
+                val muFunds = updated.mapValues {
+                    it.value.copy(
+                        changeCurrency = (it.value.changeCurrency?.value?.times(2))?.toCoinsInfo(),
+                        totalCoinsPrice = (it.value.totalCoinsPrice.value * 2).toCoinsInfo()
+                    )
+                }
+
                 if (current != null) {
                     updated[fund.symbol] = current.copy(
                         totalCoinsPrice = fund.currentPrice.toCoinsInfo(),
@@ -113,7 +139,16 @@ class HomeViewModel (
                     )
                 }
 
-                curState.copy(topPopularFunds = updated)
+                curState.copy(
+                    topPopularFunds = updated,
+                    myFunds = muFunds,
+                    myBalance = curState.myBalance?.copy(
+                        changeCurrency24Hr = muFunds.values.sumOf { fund ->
+                        (fund.changeCurrency?.value ?: 0).toDouble()
+                    }.toCoinsInfo(),
+                        totalCoinsPrice = muFunds.values.sumOf { fund -> fund.totalCoinsPrice.value }.toCoinsInfo()
+                    )
+                )
             }
         }.launchIn(viewModelScope)
     }

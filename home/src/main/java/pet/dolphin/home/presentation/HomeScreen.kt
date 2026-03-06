@@ -98,22 +98,7 @@ fun HomeScreenContent(
             // Widget Balance
             HomeBalance(
                 modifier = basicModifierContainer,
-                balanceUi = BalanceUI(
-                    id = "1asff",
-                    totalCoinsPrice = DisplayableNumber(
-                        value = 27421.42,
-                        formatted = "$27,421.42"
-                    ),
-                    changePercent24Hr = DisplayableNumber(
-                        value = 2.7,
-                        formatted = "+2.7%"
-                    ),
-                    changeCurrency24Hr = DisplayableNumber(
-                        value = 741.35,
-                        formatted = "+$741.35"
-                    ),
-                    localCurrencySymbol = stringResource(R.string.dollar_marker)
-                )
+                balanceUi = state.myBalance
             )
 
             Spacer(Modifier.height(20.dp))
