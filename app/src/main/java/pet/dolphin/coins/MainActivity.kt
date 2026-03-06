@@ -12,13 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import pet.dolphin.auth.presentation.AuthScreenRoot
 import pet.dolphin.coins.ui.theme.DolphinCoinsTheme
 import pet.dolphin.core.navigation.Screen
 import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.HomeScreenRoot
 
 class MainActivity : ComponentActivity() {
-    private val backStack = mutableListOf<Screen>(Screen.Home)
+    private val backStack = mutableListOf<Screen>(Screen.Auth)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +58,10 @@ class MainActivity : ComponentActivity() {
             Screen.Home -> HomeScreenRoot(
                 modifier,
                 onNavigateDetail = { onNavigate(Screen.DetailFund(it)) }
+            )
+            is Screen.Auth -> AuthScreenRoot(
+                modifier,
+                onNavigationHome = { onNavigate(Screen.Home) }
             )
             is Screen.DetailFund -> {}/*DetailRoute(
             id = screen.id,
