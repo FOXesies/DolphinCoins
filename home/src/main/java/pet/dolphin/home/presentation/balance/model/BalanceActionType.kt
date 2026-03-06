@@ -1,8 +1,8 @@
 package pet.dolphin.home.presentation.balance.model
 
-sealed class BalanceActionType {
-    object UpFunds : BalanceActionType()
-    object Withdraw : BalanceActionType()
-    object History : BalanceActionType()
-    object Stats : BalanceActionType()
+sealed class BalanceActionTypeUi {
+    object UpFunds : BalanceActionTypeUi()
+    object Withdraw : BalanceActionTypeUi()
+    object History : BalanceActionTypeUi()
+    object Stats : BalanceActionTypeUi()
 }

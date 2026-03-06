@@ -9,24 +9,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pet.dolphin.core.R
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.balance.components.BalanceActionItem
-import pet.dolphin.home.presentation.balance.model.BalanceActionButton
-import pet.dolphin.home.presentation.balance.model.BalanceActionType
+import pet.dolphin.home.presentation.balance.model.BalanceActionButtonUi
+import pet.dolphin.home.presentation.balance.model.BalanceActionTypeUi
 import pet.dolphin.home.presentation.balance.model.BalanceUI
-import pet.dolphin.ui.R
 import pet.dolphin.home.R as LocalR
-import pet.dolphin.ui.ThemeShapes
-import pet.eat.ui.LocalColorsPalette
 
 @Composable
 fun HomeBalance(
     modifier: Modifier = Modifier,
-    balanceUi: BalanceUI
+    balanceUi: BalanceUI?
 ) {
     Column(
         modifier = modifier
@@ -41,46 +39,48 @@ fun HomeBalance(
             color = LocalColorsPalette.current.onContainer
         )
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Total cache with localCurrencySymbol
-            Text(
-                balanceUi.totalCoinsPrice.formatted,
-                modifier = Modifier.weight(1f),
-                fontWeight = FontWeight.ExtraBold,
-                color = LocalColorsPalette.current.onBackground,
-                fontSize = 26.sp
-            )
-
-            // Difference percentage and cache with localCurrencySymbol
-            Column(
-                horizontalAlignment = Alignment.End
+        if(balanceUi != null) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
+                // Total cache with localCurrencySymbol
                 Text(
-                    balanceUi.changeCurrency24Hr.formatted,
+                    balanceUi.totalCoinsPrice.formatted,
+                    modifier = Modifier.weight(1f),
                     fontWeight = FontWeight.ExtraBold,
                     color = LocalColorsPalette.current.onBackground,
-                    fontSize = 16.sp
+                    fontSize = 26.sp
                 )
 
-                Text(
-                    balanceUi.changePercent24Hr.formatted,
-                    fontWeight = FontWeight.Medium,
-                    color = LocalColorsPalette.current.secondary,
-                    fontSize = 16.sp
-                )
+                // Difference percentage and cache with localCurrencySymbol
+                Column(
+                    horizontalAlignment = Alignment.End
+                ) {
+                    Text(
+                        balanceUi.changeCurrency24Hr.formatted,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = LocalColorsPalette.current.onBackground,
+                        fontSize = 16.sp
+                    )
+
+                    Text(
+                        balanceUi.changePercent24Hr.formatted,
+                        fontWeight = FontWeight.Medium,
+                        color = LocalColorsPalette.current.secondary,
+                        fontSize = 16.sp
+                    )
+                }
             }
-        }
 
-        // Actions with balance
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            val modifierBalanceActionButton = Modifier.weight(1f)
-            buttonsAction.forEach { buttonInfo ->
-                BalanceActionItem(modifierBalanceActionButton, buttonInfo)
+            // Actions with balance
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                val modifierBalanceActionButton = Modifier.weight(1f)
+                buttonsAction.forEach { buttonInfo ->
+                    BalanceActionItem(modifierBalanceActionButton, buttonInfo)
+                }
             }
         }
 
@@ -88,14 +88,14 @@ fun HomeBalance(
 }
 
 private val buttonsAction = listOf(
-    BalanceActionButton(
+    BalanceActionButtonUi(
         name = LocalR.string.balance_action_funds_up,
-        type = BalanceActionType.UpFunds,
+        type = BalanceActionTypeUi.UpFunds,
         imageRes = R.drawable.arrow_down
     ),
-    BalanceActionButton(
+    BalanceActionButtonUi(
         name = LocalR.string.balance_action_withdraw,
-        type = BalanceActionType.Withdraw,
+        type = BalanceActionTypeUi.Withdraw,
         imageRes = R.drawable.arrow_up
     ),
 )

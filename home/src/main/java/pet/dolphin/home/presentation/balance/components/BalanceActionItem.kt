@@ -19,14 +19,14 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import pet.dolphin.home.presentation.balance.model.BalanceActionButton
-import pet.dolphin.ui.ThemeShapes
-import pet.eat.ui.LocalColorsPalette
+import pet.dolphin.core.ui.LocalColorsPalette
+import pet.dolphin.home.presentation.balance.model.BalanceActionButtonUi
+import pet.dolphin.core.ui.ThemeShapes
 
 @Composable
 fun BalanceActionItem(
     modifier: Modifier,
-    buttonInfo: BalanceActionButton
+    buttonInfo: BalanceActionButtonUi
 ) {
     Row(
         modifier = modifier

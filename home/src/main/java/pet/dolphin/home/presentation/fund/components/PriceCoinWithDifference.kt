@@ -10,17 +10,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.fund.model.FundUI
-import pet.dolphin.ui.widgets.DotSeparator
-import pet.eat.ui.LocalColorsPalette
+import pet.dolphin.core.ui.widgets.DotSeparator
 
 @Composable
 fun PriceCoinWithDifference(
     alignment: Alignment.Horizontal = Alignment.Start,
     fundUi: FundUI
 ){
-    val isPositiveChange = fundUi.changePercent24Hr.value > 0.0
-    val colorChanges = if(isPositiveChange) LocalColorsPalette.current.secondary else LocalColorsPalette.current.error
+    val isChange = fundUi.changePercent.value != 0.0
 
     Column(
         verticalArrangement = Arrangement.spacedBy(2.dp),
@@ -35,28 +34,36 @@ fun PriceCoinWithDifference(
             fontSize = 16.sp
         )
 
-        // Difference percentage and cache with localCurrencySymbol
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(1.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                fundUi.changeCurrency24Hr.formatted,
-                fontWeight = FontWeight.Normal,
-                color = colorChanges,
-                fontSize = 14.sp
-            )
+        if(isChange) {
+            // Difference percentage and cache with localCurrencySymbol
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(1.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Get need color
+                val colorChanges =
+                    if (fundUi.changePercent.value > 0.0) LocalColorsPalette.current.secondary else LocalColorsPalette.current.error
 
-            DotSeparator(
-                color = LocalColorsPalette.current.onContainer
-            )
+                fundUi.changeCurrency?.let {
+                    Text(
+                        fundUi.changeCurrency.formatted,
+                        fontWeight = FontWeight.Normal,
+                        color = colorChanges,
+                        fontSize = 14.sp
+                    )
 
-            Text(
-                fundUi.changePercent24Hr.formatted,
-                fontWeight = FontWeight.Normal,
-                color = colorChanges,
-                fontSize = 14.sp
-            )
+                    DotSeparator(
+                        color = LocalColorsPalette.current.onContainer
+                    )
+                }
+
+                Text(
+                    fundUi.changePercent.formatted,
+                    fontWeight = FontWeight.Normal,
+                    color = colorChanges,
+                    fontSize = 14.sp
+                )
+            }
         }
     }
 }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,10 +19,9 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import pet.dolphin.ui.R
-import pet.dolphin.ui.ThemeShapes
-import pet.eat.ui.ColorPalette
-import pet.eat.ui.LocalColorsPalette
+import pet.dolphin.core.R
+import pet.dolphin.core.ui.LocalColorsPalette
+import pet.dolphin.core.ui.ThemeShapes
 
 @Composable
 fun TopHomeBar(
