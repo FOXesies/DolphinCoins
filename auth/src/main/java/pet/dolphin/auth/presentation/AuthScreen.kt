@@ -1,15 +1,23 @@
 package pet.dolphin.auth.presentation
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.koin.androidx.compose.koinViewModel
+import pet.dolphin.auth.presentation.components.LoginScreen
+import pet.dolphin.auth.presentation.components.RegisterScreen
 import pet.dolphin.auth.presentation.model.AuthAction
 import pet.dolphin.auth.presentation.model.AuthScreenState
 import pet.dolphin.auth.presentation.model.UserInfoState
@@ -36,32 +44,28 @@ fun AuthScreen(
     onAction: (AuthAction) -> Unit
 ) {
 
-    Column {
-        TextField(
-            state.userInfo.login,
-            onValueChange = { changedValue ->
-                onAction(AuthAction.ChangeLoginValue(changedValue))
-            }
-        )
+    /*LaunchedEffect {
+        // show error
+    }*/
 
-        Spacer(modifier = Modifier.height(12.dp))
-
-        TextField(
-            state.userInfo.phone,
-            onValueChange = { changedValue ->
-                onAction(AuthAction.ChangePhoneValue(changedValue))
-            }
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        TextField(
-            state.userInfo.password,
-            onValueChange = { changedValue ->
-                onAction(AuthAction.ChangePasswordValue(changedValue))
-            }
-        )
+    Column(horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+    ) {
+        if (state.isLogin)
+            LoginScreen(
+                state.userInfo.login,
+                state.userInfo.password,
+                onAction
+            )
+        else
+            RegisterScreen(
+                state.userInfo.login,
+                state.userInfo.phone,
+                state.userInfo.password,
+                onAction
+            )
 
     }
-
 }

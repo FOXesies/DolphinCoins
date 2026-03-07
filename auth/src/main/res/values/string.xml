@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_register">Создайте аккаунт</string>
+    <string name="button_register">Зарегистрироваться</string>
+    <string name="label_have_account">Уже есть аккаунт? Войдите</string>
+
+    <string name="label_login">Войдите в аккаунт</string>
+    <string name="button_login">Войти</string>
+    <string name="label_no_have_account">Нет аккаунта? Создайте</string>
+</resources>

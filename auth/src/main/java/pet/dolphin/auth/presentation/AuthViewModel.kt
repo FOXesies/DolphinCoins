@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import pet.dolphin.auth.presentation.model.AuthAction
 import pet.dolphin.auth.presentation.model.AuthScreenState
 import pet.dolphin.auth.presentation.model.Effect
+import pet.dolphin.auth.presentation.model.UserInfoState
 
 class AuthViewModel(
 
@@ -37,6 +38,12 @@ class AuthViewModel(
             ) }
             is AuthAction.ChangePhoneValue -> _state.update { it.copy(
                 userInfo = it.userInfo.copy(phone = action.data)
+            ) }
+            AuthAction.OnLoginClick -> {}
+            AuthAction.OnRegisterClick -> {}
+            AuthAction.SwapAuthScreen -> _state.update { it.copy(
+                isLogin = !it.isLogin,
+                userInfo = UserInfoState()
             ) }
         }
     }
