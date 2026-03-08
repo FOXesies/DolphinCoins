@@ -36,8 +36,8 @@ class AuthViewModel(
             is AuthAction.ChangePasswordValue -> _state.update { it.copy(
                 userInfo = it.userInfo.copy(password = action.data)
             ) }
-            is AuthAction.ChangePhoneValue -> _state.update { it.copy(
-                userInfo = it.userInfo.copy(phone = action.data)
+            is AuthAction.ChangeEmailValue -> _state.update { it.copy(
+                userInfo = it.userInfo.copy(email = action.data)
             ) }
             AuthAction.OnLoginClick -> {}
             AuthAction.OnRegisterClick -> {}

@@ -62,7 +62,7 @@ fun AuthScreen(
         else
             RegisterScreen(
                 state.userInfo.login,
-                state.userInfo.phone,
+                state.userInfo.email,
                 state.userInfo.password,
                 onAction
             )

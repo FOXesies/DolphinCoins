@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
 
     implementation(libs.bundles.ktor)
+    implementation(libs.firebase.database.ktx)
 
     testImplementation(libs.junit)
 
@@ -83,4 +84,11 @@ dependencies {
 
     //nav
     implementation(libs.androidx.navigation.compose)
+
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.database)
+
 }

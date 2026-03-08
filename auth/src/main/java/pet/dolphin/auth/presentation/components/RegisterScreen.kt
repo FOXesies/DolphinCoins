@@ -23,7 +23,7 @@ import pet.dolphin.auth.presentation.model.AuthScreenState
 @Composable
 fun RegisterScreen(
     login: String,
-    phone: String,
+    email: String,
     password: String,
     onAction: (AuthAction) -> Unit
 ) {
@@ -40,10 +40,10 @@ fun RegisterScreen(
     )
 
     TextField(
-        phone,
+        email,
         modifier = Modifier.fillMaxWidth(),
         onValueChange = { changedValue ->
-            onAction(AuthAction.ChangePhoneValue(changedValue))
+            onAction(AuthAction.ChangeEmailValue(changedValue))
         }
     )
 
