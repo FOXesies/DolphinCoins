@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Screen {
     object Home: Screen
+    object Auth: Screen
     data class DetailFund(val id: String): Screen
 }

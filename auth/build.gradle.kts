@@ -1,7 +1,3 @@
-import java.io.FileInputStream
-import java.util.Properties
-
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -11,14 +7,8 @@ plugins {
     id("kotlin-kapt")
 }
 
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if(localPropertiesFile.exists()){
-    localProperties.load(FileInputStream(localPropertiesFile))
-}
-
 android {
-    namespace = "pet.dolphin.home"
+    namespace = "pet.dolphin.auth"
     compileSdk {
         version = release(36)
     }
@@ -31,7 +21,6 @@ android {
     }
 
     buildTypes {
-
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -48,9 +37,6 @@ android {
         compose = true
         buildConfig = true
     }
-    testOptions {
-        unitTests.isIncludeAndroidResources = false
-    }
 }
 
 kotlin {
@@ -63,8 +49,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
-
-    implementation(platform(libs.androidx.compose.bom))
 
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -97,4 +81,11 @@ dependencies {
 
     //nav
     implementation(libs.androidx.navigation.compose)
+
+    //Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+    implementation(libs.play.services.auth)
+    implementation(libs.firebase.database)
+
 }

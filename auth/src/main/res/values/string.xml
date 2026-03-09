@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_login_tv">login</string>
+    <string name="label_email_tv">email</string>
+    <string name="label_password_tv">password</string>
+
+    <string name="label_register">Create account</string>
+    <string name="button_register">Sign Up</string>
+    <string name="label_have_account">Already you have account? Sign In</string>
+    <string name="register_success_message">Account successfully created</string>
+
+    <string name="label_login">Sign In to account</string>
+    <string name="button_login">Sign In</string>
+    <string name="label_no_have_account">No account? Sign Up</string>
+    <string name="login_success_message">Successful entry</string>
+
+
+</resources>

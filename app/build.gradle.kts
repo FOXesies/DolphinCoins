@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
     //
     //    id("com.google.devtools.ksp")
 }
@@ -48,8 +49,10 @@ kotlin {
 }
 
 dependencies {
+    //my modules
     implementation(project(":core"))
     implementation(project(":home"))
+    implementation(project(":auth"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -72,4 +75,8 @@ dependencies {
 
     //nav
     implementation(libs.androidx.navigation.compose)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database)
 }
