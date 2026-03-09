@@ -14,8 +14,11 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.firebase.Firebase
+import com.google.firebase.database.FirebaseDatabase
 import pet.dolphin.auth.presentation.AuthScreenRoot
 import pet.dolphin.coins.ui.theme.DolphinCoinsTheme
+import pet.dolphin.core.data.firebase.FirebaseConstants
 import pet.dolphin.core.navigation.Screen
 import pet.dolphin.core.ui.LocalColorsPalette
 import pet.dolphin.home.presentation.HomeScreenRoot
@@ -27,7 +30,11 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            val backStack = rememberSaveable { mutableStateListOf<Screen>(Screen.Auth) }
+            val backStack = rememberSaveable { mutableStateListOf(
+                    if(FirebaseConstants.firebaseAuth.currentUser == null) Screen.Auth
+                    else Screen.Home
+                )
+            }
 
             DolphinCoinsTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
