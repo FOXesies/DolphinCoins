@@ -75,7 +75,6 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
 
     implementation(libs.bundles.ktor)
-    implementation(libs.firebase.auth.ktx)
 
     testImplementation(libs.junit)
 

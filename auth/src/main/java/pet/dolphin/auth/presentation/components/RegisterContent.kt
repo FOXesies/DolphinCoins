@@ -28,6 +28,7 @@ fun RegisterContent(
 
     Spacer(modifier = Modifier.height(12.dp))
 
+    Text(stringResource(LocalR.string.label_login_tv))
     TextField(
         login,
         modifier = Modifier.fillMaxWidth(),
@@ -36,6 +37,7 @@ fun RegisterContent(
         }
     )
 
+    Text(stringResource(LocalR.string.label_email_tv))
     TextField(
         email,
         modifier = Modifier.fillMaxWidth(),
@@ -44,6 +46,7 @@ fun RegisterContent(
         }
     )
 
+    Text(stringResource(LocalR.string.label_password_tv))
     TextField(
         password,
         modifier = Modifier.fillMaxWidth(),

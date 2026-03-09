@@ -30,8 +30,6 @@ import pet.dolphin.auth.presentation.model.AuthScreenState
 import pet.dolphin.auth.presentation.model.UserInfoState
 import pet.dolphin.core.ui.util.showToastMessage
 import pet.dolphin.core.ui.util.toString
-import kotlin.coroutines.CoroutineContext
-
 
 @Composable
 fun AuthScreenRoot(
@@ -89,7 +87,7 @@ fun AuthScreen(
     ) {
         if (state.isLogin)
             LoginContent(
-                state.userInfo.login,
+                state.userInfo.email,
                 state.userInfo.password,
                 onAction
             )

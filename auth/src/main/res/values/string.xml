@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="label_login_tv">login</string>
+    <string name="label_email_tv">email</string>
+    <string name="label_password_tv">password</string>
+
     <string name="label_register">Create account</string>
     <string name="button_register">Sign Up</string>
     <string name="label_have_account">Already you have account? Sign In</string>

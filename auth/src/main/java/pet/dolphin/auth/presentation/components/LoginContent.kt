@@ -18,7 +18,7 @@ import pet.dolphin.auth.presentation.model.AuthAction
 
 @Composable
 fun LoginContent(
-    login: String,
+    email: String,
     password: String,
     onAction: (AuthAction) -> Unit
 ) {
@@ -26,14 +26,16 @@ fun LoginContent(
 
     Spacer(modifier = Modifier.height(12.dp))
 
+    Text(stringResource(LocalR.string.label_email_tv))
     TextField(
-        login,
+        email,
         modifier = Modifier.fillMaxWidth(),
         onValueChange = { changedValue ->
-            onAction(AuthAction.ChangeLoginValue(changedValue))
+            onAction(AuthAction.ChangeEmailValue(changedValue))
         }
     )
 
+    Text(stringResource(LocalR.string.label_password_tv))
     TextField(
         password,
         modifier = Modifier.fillMaxWidth(),

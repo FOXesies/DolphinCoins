@@ -7,14 +7,16 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.tasks.await
 import pet.dolphin.auth.data.networking.dto.UserDto
+import pet.dolphin.auth.mappers.toStringFormat
 import pet.dolphin.core.data.firebase.CustomFirebaseException
 import pet.dolphin.core.data.firebase.FirebaseConstants
 import pet.dolphin.core.data.firebase.FirebaseDatabaseSchemas
-import pet.dolphin.core.data.networking.safeFirebaseCall
+import pet.dolphin.core.data.firebase.safeFirebaseCall
 import pet.dolphin.core.domain.util.AuthError
 import pet.dolphin.core.domain.util.ErrorDomain
 import pet.dolphin.core.domain.util.Result
 import pet.dolphin.core.domain.util.onSuccess
+import java.time.ZonedDateTime
 
 class AuthRemoteSource(
 ) {
@@ -74,7 +76,8 @@ class AuthRemoteSource(
         return safeFirebaseCall {
             FirebaseDatabaseSchemas.users
                 .child(uid)
-                .setValue(Timestamp.now().toString())
+                .child("lastLogIn")
+                .setValue(ZonedDateTime.now().toStringFormat())
                 .await()
         }
     }
