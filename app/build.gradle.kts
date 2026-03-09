@@ -48,6 +48,7 @@ kotlin {
 }
 
 dependencies {
+    //my modules
     implementation(project(":core"))
     implementation(project(":home"))
     implementation(project(":auth"))
@@ -60,6 +61,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.firebase.common.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,4 +75,9 @@ dependencies {
 
     //nav
     implementation(libs.androidx.navigation.compose)
+
+    //firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.database)
 }

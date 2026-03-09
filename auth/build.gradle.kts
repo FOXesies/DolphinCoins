@@ -59,7 +59,6 @@ dependencies {
     implementation(libs.androidx.compose.runtime)
 
     implementation(libs.bundles.ktor)
-    implementation(libs.firebase.database.ktx)
 
     testImplementation(libs.junit)
 
@@ -87,6 +86,7 @@ dependencies {
 
     //Firebase
     implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.database.ktx)
     implementation(libs.firebase.auth)
     implementation(libs.play.services.auth)
     implementation(libs.firebase.database)

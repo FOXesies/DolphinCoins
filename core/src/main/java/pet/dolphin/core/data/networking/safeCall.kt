@@ -10,6 +10,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.coroutines.ensureActive
 import kotlinx.serialization.SerializationException
+import pet.dolphin.core.data.firebase.CustomFirebaseException
 import pet.dolphin.core.domain.util.AuthError
 import pet.dolphin.core.domain.util.ErrorDomain
 import pet.dolphin.core.domain.util.NetworkError
@@ -57,6 +58,12 @@ suspend inline fun <reified T> safeFirebaseCall(
     }
     catch (e: FirebaseAuthEmailException) {
         Result.Error(AuthError.EMAIL_ALREADY_EXISTS)
+    }
+    catch (e: FirebaseAuthEmailException) {
+        Result.Error(AuthError.EMAIL_ALREADY_EXISTS)
+    }
+    catch (e: CustomFirebaseException.LoginNoUniqueException) {
+        Result.Error(AuthError.LOGIN_ALREADY_EXISTS)
     }
     catch (e: Exception) {
         coroutineContext.ensureActive()

@@ -2,7 +2,7 @@ package pet.dolphin.core.data.firebase
 
 import pet.dolphin.core.data.firebase.FirebaseConstants.firebaseDatabase
 
-object FirestoreSchemas {
+object FirebaseDatabaseSchemas {
 
     private const val USERS = "users"
 

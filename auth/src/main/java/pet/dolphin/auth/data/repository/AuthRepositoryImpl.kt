@@ -13,11 +13,11 @@ class AuthRepositoryImpl(
         login: String,
         email: String,
         password: String
-    ): Result<FirebaseUser?, ErrorDomain> {
-        TODO("Not yet implemented")
+    ): Result<Unit, ErrorDomain> {
+        return remoteSource.signUp(login, email, password)
     }
 
-    override suspend fun signIn(email: String, password: String): Result<FirebaseUser?, ErrorDomain> {
-        TODO("Not yet implemented")
+    override suspend fun signIn(email: String, password: String): Result<Unit, ErrorDomain> {
+        return remoteSource.signIn(email, password)
     }
 }
