@@ -3,6 +3,7 @@ package pet.dolphin.auth.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,8 +35,8 @@ class AuthViewModel(
             AuthScreenState()
         )
 
-    private val _effect = Channel<Effect>()
-    val effect = _effect.receiveAsFlow()
+    private val _effect = MutableSharedFlow<Effect>()
+    val effect = _effect.asSharedFlow()
 
     private val _event = MutableSharedFlow<AuthEvent>(
         replay = 0,
@@ -74,10 +75,12 @@ class AuthViewModel(
                 password = userInputData.password
             )
             .onSuccess {
-                _event.tryEmit(AuthEvent.SuccessLogin)
+                sendEvent(AuthEvent.SuccessLogin)
+                delay(100)
+                sendEffect(Effect.NavigateHome)
             }
             .onError { error ->
-                _event.tryEmit(AuthEvent.Error(error))
+                sendEvent(AuthEvent.Error(error))
             }
         }
     }
@@ -94,12 +97,20 @@ class AuthViewModel(
                 password = userInputData.password
             )
             .onSuccess {
-                _event.tryEmit(AuthEvent.SuccessLogin)
+                sendEvent(AuthEvent.SuccessLogin)
+                delay(100)
+                sendEffect(Effect.NavigateHome)
             }
             .onError { error ->
-                _event.tryEmit(AuthEvent.Error(error))
+                sendEvent(AuthEvent.Error(error))
             }
         }
     }
 
+    private fun sendEffect(effect: Effect) {
+        viewModelScope.launch { _effect.emit(effect) }
+    }
+    private fun sendEvent(event: AuthEvent) {
+        viewModelScope.launch { _event.emit(event) }
+    }
 }

@@ -27,7 +27,9 @@ import pet.dolphin.auth.presentation.components.RegisterContent
 import pet.dolphin.auth.presentation.model.AuthAction
 import pet.dolphin.auth.presentation.model.AuthEvent
 import pet.dolphin.auth.presentation.model.AuthScreenState
+import pet.dolphin.auth.presentation.model.Effect
 import pet.dolphin.auth.presentation.model.UserInfoState
+import pet.dolphin.core.ui.util.ObserveAsEvents
 import pet.dolphin.core.ui.util.showToastMessage
 import pet.dolphin.core.ui.util.toString
 
@@ -35,35 +37,36 @@ import pet.dolphin.core.ui.util.toString
 fun AuthScreenRoot(
     modifier: Modifier,
     viewModel: AuthViewModel = koinViewModel(),
-    onNavigationHome: (UserInfoState) -> Unit
-){
+    onNavigationHome: () -> Unit
+) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    val lifecycleOwner = LocalLifecycleOwner.current
-    LaunchedEffect(lifecycleOwner) {
-        lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-            withContext(Dispatchers.Main.immediate) {
-                viewModel.event.collect { event ->
-                    when (event) {
-                        is AuthEvent.Error -> showToastMessage(
-                            context,
-                            event.errorMessage.toString(context)
-                        )
-                        AuthEvent.SuccessLogin -> showToastMessage(
-                            context,
-                            context.getString(LocalR.string.login_success_message)
-                        )
-                        AuthEvent.SuccessRegister -> showToastMessage(
-                            context,
-                            context.getString(LocalR.string.register_success_message)
-                        )
-                    }
-                }
+    ObserveAsEvents(events = viewModel.event) { event ->
+        when (event) {
+            is AuthEvent.Error -> showToastMessage(
+                context,
+                event.errorMessage.toString(context)
+            )
+
+            AuthEvent.SuccessLogin -> showToastMessage(
+                context,
+                context.getString(LocalR.string.login_success_message)
+            )
+
+            AuthEvent.SuccessRegister -> showToastMessage(
+                context,
+                context.getString(LocalR.string.register_success_message)
+            )
+        }
+    }
+
+    ObserveAsEvents(events = viewModel.effect) { effect ->
+        when(effect) {
+            is Effect.NavigateHome -> {
+                onNavigationHome()
             }
         }
-
-
     }
 
     AuthScreen(
